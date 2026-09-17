@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
 <title>Kairgo Studio</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Manrope:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
 <style>
@@ -155,6 +162,8 @@
   .price-name{margin-top:14px;font-size:24px;}
   .price-desc{margin-top:10px;font-size:13.5px;color:var(--ink-dim);line-height:1.6;min-height:58px;}
   .price-amount{margin-top:22px;font-family:var(--f-mono);font-size:34px;font-weight:700;}
+  .price-was{margin-top:14px;font-size:14px;color:var(--ink-faint);text-decoration:line-through;text-decoration-color:rgba(255,80,80,0.6);}
+  .price-was + .price-amount{margin-top:2px;}
   .price-maint{overflow:hidden;transition:max-height .35s ease,opacity .3s ease;max-height:0;opacity:0;}
   .price-maint.show{max-height:30px;opacity:1;}
   .price-maint-text{margin-top:6px;font-family:var(--f-mono);font-size:12px;color:var(--ink-faint);}
@@ -1406,7 +1415,7 @@ const PLANS = [
   { n: "02", visual: "auto", name: "Automatizaciones para Negocios", desc: "Agenda, da seguimiento y responde a tus clientes por WhatsApp, captando leads solo.", price: "$8,500 MXN", mensualidad: "$1,200 MXN", waMsg: "Hola, me interesa el plan de Automatizaciones para Negocios." },
   { n: "03", visual: "call", name: "Recepcionista Inteligente", desc: "Agente de voz con IA que contesta llamadas y agenda citas, 24/7.", price: "Desde $8,000 MXN", mensualidad: null, waMsg: "Hola, me interesa el plan de Recepcionista Inteligente." },
   { n: "04", visual: "combo", name: "Website + AI", desc: "Website profesional + Automatizaciones para Negocios. El combo más elegido.", price: "$12,000 MXN", mensualidad: "$1,500 MXN", highlight: true, waMsg: "Hola, me interesa el plan Website + AI." },
-  { n: "05", visual: "combo", name: "Pro / Custom AI", desc: "Automatizaciones + Recepcionista combinados, o una solución 100% a la medida.", price: "Desde $10,000 MXN", mensualidad: null, waMsg: "Hola, me interesa una solución Pro / Custom AI." },
+  { n: "05", visual: "combo", name: "Pro / Custom AI", desc: "Automatizaciones + Recepcionista combinados, o una solución 100% a la medida.", price: "$13,500 MXN", wasPrice: "$16,500 MXN", mensualidad: null, highlight: true, badge: "🔥 AHORRA $3,000", waMsg: "Hola, me interesa una solución Pro / Custom AI." },
 ];
 
 function PriceVisual({ type }) {
@@ -1447,11 +1456,12 @@ function PriceCard({ plan, showMensualidad }) {
         className={"price-card" + (plan.highlight ? " highlight" : "")}
         style={{ transform: `rotateY(${tilt.x * 6}deg) rotateX(${-tilt.y * 6}deg) translateZ(0)` }}
       >
-        {plan.highlight && <div className="mono" style={{ position: "absolute", top: 20, right: 24, fontSize: 10.5, color: "var(--violet)", letterSpacing: "0.05em" }}>🔥 MÁS ELEGIDO</div>}
+        {plan.highlight && <div className="mono" style={{ position: "absolute", top: 20, right: 24, fontSize: 10.5, color: "var(--violet)", letterSpacing: "0.05em" }}>{plan.badge || "🔥 MÁS ELEGIDO"}</div>}
         <div className="price-visual"><PriceVisual type={plan.visual} /></div>
         <div className="price-tag mono">{plan.n}</div>
         <div className="price-name sans-black" style={{ fontSize: 19 }}>{plan.name}</div>
         <p className="price-desc">{plan.desc}</p>
+        {plan.wasPrice && <div className="price-was mono">{plan.wasPrice}</div>}
         <div className="price-amount">{plan.price}</div>
         <div className={"price-maint" + (showMensualidad && plan.mensualidad ? " show" : "")}>
           <div className="price-maint-text">+ {plan.mensualidad}/mes mantenimiento</div>
@@ -1606,3 +1616,6 @@ function App() {
 
 ReactDOM.createRoot(document.getElementById("root")).render(<App />);
 </script>
+
+</body>
+</html>
