@@ -164,6 +164,8 @@
   .price-amount{margin-top:22px;font-family:var(--f-mono);font-size:34px;font-weight:700;}
   .price-was{margin-top:14px;font-size:14px;color:var(--ink-faint);text-decoration:line-through;text-decoration-color:rgba(255,80,80,0.6);}
   .price-was + .price-amount{margin-top:2px;}
+  .price-time{margin-top:12px;font-size:10.5px;letter-spacing:0.07em;text-transform:uppercase;color:var(--electric);display:flex;align-items:center;gap:7px;}
+  .price-time .dot{width:4px;height:4px;border-radius:50%;background:var(--electric);flex-shrink:0;}
   .price-maint{overflow:hidden;transition:max-height .35s ease,opacity .3s ease;max-height:0;opacity:0;}
   .price-maint.show{max-height:30px;opacity:1;}
   .price-maint-text{margin-top:6px;font-family:var(--f-mono);font-size:12px;color:var(--ink-faint);}
@@ -207,6 +209,8 @@
   @keyframes svcRing{0%,100%{opacity:.15;transform:scale(1);}50%{opacity:.6;transform:scale(1.12);}}
   .svc-name{font-size:16.5px;font-weight:700;}
   .svc-desc{margin-top:8px;font-size:12.8px;color:var(--ink-dim);line-height:1.55;}
+  .svc-time{margin-top:14px;font-size:10.5px;letter-spacing:0.07em;text-transform:uppercase;color:var(--electric);display:flex;align-items:center;gap:7px;}
+  .svc-time .dot{width:4px;height:4px;border-radius:50%;background:var(--electric);flex-shrink:0;}
   .svc-progress{margin-top:18px;height:2px;border-radius:2px;background:rgba(255,255,255,0.07);overflow:hidden;}
   .svc-progress span{display:block;height:100%;width:38%;background:linear-gradient(90deg,var(--violet),var(--electric));animation:svcTravel 2.6s ease-in-out infinite;}
   @keyframes svcTravel{0%{transform:translateX(-100%);}100%{transform:translateX(280%);}}
@@ -965,9 +969,9 @@ function HookPhrases() {
 
 /* ============================= Services (compact, flat) ============================= */
 const SERVICES = [
-  { icon: "Globe", name: "Websites", desc: "Sitios modernos, personalizados y premium — con animaciones e interacciones reales." },
-  { icon: "Flow", name: "Automatizaciones para Negocios", desc: "Agendan, dan seguimiento y responden a tus clientes por WhatsApp/chat, captando leads sin intervención manual." },
-  { icon: "Phone", name: "Recepcionista Inteligente", desc: "Un agente de voz con IA que contesta llamadas, agenda citas y atiende como un recepcionista humano, 24/7." },
+  { icon: "Globe", name: "Websites", desc: "Sitios modernos, personalizados y premium — con animaciones e interacciones reales.", time: "Entrega en 24-36 horas" },
+  { icon: "Flow", name: "Automatizaciones para Negocios", desc: "Agendan, dan seguimiento y responden a tus clientes por WhatsApp/chat, captando leads sin intervención manual.", time: "Entrega en 48 horas" },
+  { icon: "Phone", name: "Recepcionista Inteligente", desc: "Un agente de voz con IA que contesta llamadas, agenda citas y atiende como un recepcionista humano, 24/7.", time: "Entrega en 48-72 horas" },
   { icon: "Sparkles", name: "Custom Digital Experiences", desc: "Experiencias digitales a la medida para negocios que quieren algo distinto." },
 ];
 
@@ -991,6 +995,7 @@ function ServiceCard({ item, delay }) {
         <div className="svc-icon" style={{ animationDelay: delay * 0.4 + "ms" }}><IconComp style={{ width: 18, height: 18 }} /></div>
         <div className="svc-name">{item.name}</div>
         <p className="svc-desc">{item.desc}</p>
+        {item.time && <div className="svc-time mono"><span className="dot" />{item.time}</div>}
         <div className="svc-progress"><span style={{ animationDelay: delay * 0.6 + "ms" }} /></div>
       </div>
     </Reveal>
@@ -1411,9 +1416,9 @@ function Testimonials() {
 
 /* ============================= Pricing ============================= */
 const PLANS = [
-  { n: "01", visual: "web", name: "Website", desc: "Diseño cinemático, 3D interactivo y código a la medida — nada de plantillas.", price: "$5,000 MXN", mensualidad: "$500 MXN", waMsg: "Hola, me interesa el plan Website." },
-  { n: "02", visual: "auto", name: "Automatizaciones para Negocios", desc: "Agenda, da seguimiento y responde a tus clientes por WhatsApp, captando leads solo.", price: "$8,500 MXN", mensualidad: "$1,200 MXN", waMsg: "Hola, me interesa el plan de Automatizaciones para Negocios." },
-  { n: "03", visual: "call", name: "Recepcionista Inteligente", desc: "Agente de voz con IA que contesta llamadas y agenda citas, 24/7.", price: "Desde $8,000 MXN", mensualidad: null, waMsg: "Hola, me interesa el plan de Recepcionista Inteligente." },
+  { n: "01", visual: "web", name: "Website", desc: "Diseño cinemático, 3D interactivo y código a la medida — nada de plantillas.", price: "$5,000 MXN", mensualidad: "$500 MXN", time: "Entrega en 24-36 horas", waMsg: "Hola, me interesa el plan Website." },
+  { n: "02", visual: "auto", name: "Automatizaciones para Negocios", desc: "Agenda, da seguimiento y responde a tus clientes por WhatsApp, captando leads solo.", price: "$8,500 MXN", mensualidad: "$1,200 MXN", time: "Entrega en 48 horas", waMsg: "Hola, me interesa el plan de Automatizaciones para Negocios." },
+  { n: "03", visual: "call", name: "Recepcionista Inteligente", desc: "Agente de voz con IA que contesta llamadas y agenda citas, 24/7.", price: "Desde $8,000 MXN", mensualidad: null, time: "Entrega en 48-72 horas", waMsg: "Hola, me interesa el plan de Recepcionista Inteligente." },
   { n: "04", visual: "combo", name: "Website + AI", desc: "Website profesional + Automatizaciones para Negocios. El combo más elegido.", price: "$12,000 MXN", mensualidad: "$1,500 MXN", highlight: true, waMsg: "Hola, me interesa el plan Website + AI." },
   { n: "05", visual: "combo", name: "Pro / Custom AI", desc: "Automatizaciones + Recepcionista combinados, o una solución 100% a la medida.", price: "$13,500 MXN", wasPrice: "$16,500 MXN", mensualidad: null, highlight: true, badge: "🔥 AHORRA $3,000", waMsg: "Hola, me interesa una solución Pro / Custom AI." },
 ];
@@ -1463,6 +1468,7 @@ function PriceCard({ plan, showMensualidad }) {
         <p className="price-desc">{plan.desc}</p>
         {plan.wasPrice && <div className="price-was mono">{plan.wasPrice}</div>}
         <div className="price-amount">{plan.price}</div>
+        {plan.time && <div className="price-time mono"><span className="dot" />{plan.time}</div>}
         <div className={"price-maint" + (showMensualidad && plan.mensualidad ? " show" : "")}>
           <div className="price-maint-text">+ {plan.mensualidad}/mes mantenimiento</div>
         </div>
