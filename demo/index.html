@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demostración · Kairgo Studio</title>
+<meta property="og:title" content="Su demostración · Kairgo Studio">
+<meta property="og:description" content="Una idea rápida de cómo se vería su página con asistente de IA. Hecho por Kairgo Studio.">
+<meta name="robots" content="noindex">
+<style>
+  html,body{margin:0;height:100%;background:#0d0b14;color:#e9e4ff;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+  .c{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:16px}
+  .s{width:38px;height:38px;border:3px solid #2a2440;border-top-color:#a07bff;border-radius:50%;animation:r 1s linear infinite}
+  @keyframes r{to{transform:rotate(360deg)}}
+  a{color:#a07bff}
+</style>
+</head>
+<body>
+<div class="c" id="msg"><div class="s"></div><div>Cargando su demostración… ✨</div></div>
+<script>
+(function(){
+  var p = new URLSearchParams(location.search);
+  var d = p.get('d') || location.hash.replace('#','');
+  var msg = document.getElementById('msg');
+  if (!d) { msg.innerHTML = 'No encontramos esta demostración. <a href="/">Ir a Kairgo Studio</a>'; return; }
+  var url = 'https://tengosed21.app.n8n.cloud/webhook/demo?' + (p.get('qa') ? 'qa=1&' : '') + 'd=' + encodeURIComponent(d);
+  fetch(url)
+    .then(function(r){ if (!r.ok) throw 0; return r.text(); })
+    .then(function(html){ document.open(); document.write(html); document.close(); })
+    .catch(function(){ msg.innerHTML = 'No pudimos cargar la demostración ahorita 🙏<br>Escríbanos al <a href="https://wa.me/5215544845957">55 4484 5957</a>'; });
+})();
+</script>
+</body>
+</html>
